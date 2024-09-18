@@ -33,61 +33,61 @@ use pocketmine\network\mcpe\protocol\types\entity\MetadataProperty;
 /**
  * This class allows broadcasting entity events to many viewers on the server network.
  */
-interface EntityEventBroadcaster{
+interface EntityEventBroadcaster
+{
+    /**
+     * @param NetworkSession[] $recipients
+     * @param Attribute[]      $attributes
+     */
+    public function syncAttributes(array $recipients, Living $entity, array $attributes): void;
 
-	/**
-	 * @param NetworkSession[] $recipients
-	 * @param Attribute[]      $attributes
-	 */
-	public function syncAttributes(array $recipients, Living $entity, array $attributes) : void;
+    /**
+     * @param NetworkSession[]   $recipients
+     * @param MetadataProperty[] $properties
+     *
+     * @phpstan-param array<int, MetadataProperty> $properties
+     */
+    public function syncActorData(array $recipients, Entity $entity, array $properties): void;
 
-	/**
-	 * @param NetworkSession[]   $recipients
-	 * @param MetadataProperty[] $properties
-	 *
-	 * @phpstan-param array<int, MetadataProperty> $properties
-	 */
-	public function syncActorData(array $recipients, Entity $entity, array $properties) : void;
+    /**
+     * @param NetworkSession[] $recipients
+     */
+    public function onEntityEffectAdded(array $recipients, Living $entity, EffectInstance $effect, bool $replacesOldEffect): void;
 
-	/**
-	 * @param NetworkSession[] $recipients
-	 */
-	public function onEntityEffectAdded(array $recipients, Living $entity, EffectInstance $effect, bool $replacesOldEffect) : void;
+    /**
+     * @param NetworkSession[] $recipients
+     */
+    public function onEntityEffectRemoved(array $recipients, Living $entity, EffectInstance $effect): void;
 
-	/**
-	 * @param NetworkSession[] $recipients
-	 */
-	public function onEntityEffectRemoved(array $recipients, Living $entity, EffectInstance $effect) : void;
+    /**
+     * @param NetworkSession[] $recipients
+     */
+    public function onEntityRemoved(array $recipients, Entity $entity): void;
 
-	/**
-	 * @param NetworkSession[] $recipients
-	 */
-	public function onEntityRemoved(array $recipients, Entity $entity) : void;
+    /**
+     * TODO: expand this to more than just humans
+     *
+     * @param NetworkSession[] $recipients
+     */
+    public function onMobMainHandItemChange(array $recipients, Human $mob): void;
 
-	/**
-	 * TODO: expand this to more than just humans
-	 *
-	 * @param NetworkSession[] $recipients
-	 */
-	public function onMobMainHandItemChange(array $recipients,Human $mob) : void;
+    /**
+     * @param NetworkSession[] $recipients
+     */
+    public function onMobOffHandItemChange(array $recipients, Human $mob): void;
 
-	/**
-	 * @param NetworkSession[] $recipients
-	 */
-	public function onMobOffHandItemChange(array $recipients, Human $mob) : void;
+    /**
+     * @param NetworkSession[] $recipients
+     */
+    public function onMobArmorChange(array $recipients, Living $mob): void;
 
-	/**
-	 * @param NetworkSession[] $recipients
-	 */
-	public function onMobArmorChange(array $recipients, Living $mob) : void;
+    /**
+     * @param NetworkSession[] $recipients
+     */
+    public function onPickUpItem(array $recipients, Entity $collector, Entity $pickedUp): void;
 
-	/**
-	 * @param NetworkSession[] $recipients
-	 */
-	public function onPickUpItem(array $recipients, Entity $collector, Entity $pickedUp) : void;
-
-	/**
-	 * @param NetworkSession[] $recipients
-	 */
-	public function onEmote(array $recipients, Human $from, string $emoteId) : void;
+    /**
+     * @param NetworkSession[] $recipients
+     */
+    public function onEmote(array $recipients, Human $from, string $emoteId, int $emoteLengthTicks) : void;
 }
