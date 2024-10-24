@@ -791,6 +791,7 @@ final class BlockTypeNames{
 	public const MOSSY_STONE_BRICKS = "minecraft:mossy_stone_bricks";
 	public const MOVING_BLOCK = "minecraft:moving_block";
 	public const MUD = "minecraft:mud";
+	public const MUSHROOM_STEM = "minecraft:mushroom_stem";
 	public const MUD_BRICK_DOUBLE_SLAB = "minecraft:mud_brick_double_slab";
 	public const MUD_BRICK_SLAB = "minecraft:mud_brick_slab";
 	public const MUD_BRICK_STAIRS = "minecraft:mud_brick_stairs";
@@ -1010,6 +1011,13 @@ final class BlockTypeNames{
 	public const SHROOMLIGHT = "minecraft:shroomlight";
 	public const SILVER_GLAZED_TERRACOTTA = "minecraft:silver_glazed_terracotta";
 	public const SKULL = "minecraft:skull";
+	public const CREEPER_HEAD = "minecraft:creeper_head";
+	public const DRAGON_HEAD = "minecraft:dragon_head";
+	public const PIGLIN_HEAD = "minecraft:piglin_head";
+	public const PLAYER_HEAD = "minecraft:player_head";
+	public const SKELETON_SKULL = "minecraft:skeleton_skull";
+	public const WITHER_SKELETON_SKULL = "minecraft:wither_skeleton_skull";
+	public const ZOMBIE_HEAD = "minecraft:zombie_head";
 	public const SLIME = "minecraft:slime";
 	public const SMALL_AMETHYST_BUD = "minecraft:small_amethyst_bud";
 	public const SMALL_DRIPLEAF_BLOCK = "minecraft:small_dripleaf_block";
