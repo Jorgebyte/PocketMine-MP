@@ -29,7 +29,8 @@ use function is_array;
 use function is_int;
 use function str_repeat;
 
-final class VersionInfo{
+final class VersionInfo
+{
 	public const NAME = "PocketMine-MP";
 	public const BASE_VERSION = "5.44.4";
 	public const IS_DEVELOPMENT_BUILD = true;
@@ -51,23 +52,25 @@ final class VersionInfo{
 	 */
 	public const TAG_WORLD_DATA_VERSION = "PMMPDataVersion"; //TAG_Long
 
-	private function __construct(){
+	private function __construct()
+	{
 		//NOOP
 	}
 
 	private static ?string $gitHash = null;
 
-	public static function GIT_HASH() : string{
-		if(self::$gitHash === null){
+	public static function GIT_HASH(): string
+	{
+		if (self::$gitHash === null) {
 			$gitHash = str_repeat("00", 20);
 
-			if(\Phar::running(true) === ""){
+			if (\Phar::running(true) === "") {
 				$gitHash = Git::getRepositoryStatePretty(\pocketmine\PATH);
-			}else{
+			} else {
 				$pharPath = \Phar::running(false);
 				$phar = \Phar::isValidPharFilename($pharPath) ? new \Phar($pharPath) : new \PharData($pharPath);
 				$meta = $phar->getMetadata();
-				if(isset($meta["git"])){
+				if (isset($meta["git"])) {
 					$gitHash = $meta["git"];
 				}
 			}
@@ -80,14 +83,15 @@ final class VersionInfo{
 
 	private static ?int $buildNumber = null;
 
-	public static function BUILD_NUMBER() : int{
-		if(self::$buildNumber === null){
+	public static function BUILD_NUMBER(): int
+	{
+		if (self::$buildNumber === null) {
 			self::$buildNumber = 0;
-			if(\Phar::running(true) !== ""){
+			if (\Phar::running(true) !== "") {
 				$pharPath = \Phar::running(false);
 				$phar = \Phar::isValidPharFilename($pharPath) ? new \Phar($pharPath) : new \PharData($pharPath);
 				$meta = $phar->getMetadata();
-				if(is_array($meta) && isset($meta["build"]) && is_int($meta["build"])){
+				if (is_array($meta) && isset($meta["build"]) && is_int($meta["build"])) {
 					self::$buildNumber = $meta["build"];
 				}
 			}
@@ -98,8 +102,9 @@ final class VersionInfo{
 
 	private static ?VersionString $fullVersion = null;
 
-	public static function VERSION() : VersionString{
-		if(self::$fullVersion === null){
+	public static function VERSION(): VersionString
+	{
+		if (self::$fullVersion === null) {
 			self::$fullVersion = new VersionString(self::BASE_VERSION, self::IS_DEVELOPMENT_BUILD, self::BUILD_NUMBER());
 		}
 		return self::$fullVersion;

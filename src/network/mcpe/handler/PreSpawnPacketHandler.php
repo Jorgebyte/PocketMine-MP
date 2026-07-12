@@ -55,17 +55,20 @@ use function sprintf;
  */
 #[SilentDiscard(PlayerAuthInputPacket::class, comment: "Spammed after StartGame even though player has no controls")]
 #[SilentDiscard(ServerboundLoadingScreenPacket::class, "Not needed")]
-class PreSpawnPacketHandler extends PacketHandler{
+class PreSpawnPacketHandler extends PacketHandler
+{
 	public function __construct(
 		private Server $server,
 		private Player $player,
 		private NetworkSession $session,
 		private InventoryManager $inventoryManager
-	){}
+	) {
+	}
 
-	public function setUp() : void{
+	public function setUp(): void
+	{
 		Timings::$playerNetworkSendPreSpawnGameData->startTiming();
-		try{
+		try {
 			$location = $this->player->getLocation();
 			$world = $location->getWorld();
 
@@ -113,7 +116,6 @@ class PreSpawnPacketHandler extends PacketHandler{
 				false,
 				false,
 				new NetworkPermissions(disableClientSounds: true),
-				true,
 				null,
 				new ServerTelemetryData("", "", "", ""),
 				[],
@@ -140,7 +142,7 @@ class PreSpawnPacketHandler extends PacketHandler{
 			$this->session->syncAdventureSettings();
 
 			$this->session->getLogger()->debug("Sending effects");
-			foreach($this->player->getEffects()->all() as $effect){
+			foreach ($this->player->getEffects()->all() as $effect) {
 				$this->session->getEntityEventBroadcaster()->onEntityEffectAdded([$this->session], $this->player, $effect, false);
 			}
 
@@ -159,12 +161,13 @@ class PreSpawnPacketHandler extends PacketHandler{
 
 			$this->session->getLogger()->debug("Sending player list");
 			$this->session->syncPlayerList($this->server->getOnlinePlayers());
-		}finally{
+		} finally {
 			Timings::$playerNetworkSendPreSpawnGameData->stopTiming();
 		}
 	}
 
-	public function handleRequestChunkRadius(RequestChunkRadiusPacket $packet) : bool{
+	public function handleRequestChunkRadius(RequestChunkRadiusPacket $packet): bool
+	{
 		$this->player->setViewDistance($packet->radius);
 
 		return true;
